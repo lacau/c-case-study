@@ -1,0 +1,10 @@
+- "open()" system call returns the lowest available descriptor
+- descriptors:
+-- 0 stdin  -> typically connected to keyboard
+-- 1 stdout -> tipically connected to the screen (tty)
+-- 2 stderr -> same as stdout
+
+- write() / read() -> low level system calls, it just transafers raw binary data between file and memory
+- "read()" -> returns the number os bytes actually readed or 0(end-of-file)
+- "close()" -> closes the descriptor, makes it available for re-use. Descriptors are implicitly closed when a process terminates
+- Always good practice to close the descriptor, because there is a FINITE limit of how many descriptors a process can open
