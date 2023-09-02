@@ -14,10 +14,6 @@ int main() {
 
     fd = open(filename, O_RDWR);
     read(fd, &info, size);
-    close(fd);
-
-    fd = open(filename, O_RDWR);
-    read(fd, &info, size);
 
     info.id = 99;
     lseek(fd, -size, SEEK_CUR);
