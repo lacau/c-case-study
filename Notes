@@ -8,3 +8,6 @@
 - "read()" -> returns the number os bytes actually readed or 0(end-of-file)
 - "close()" -> closes the descriptor, makes it available for re-use. Descriptors are implicitly closed when a process terminates
 - Always good practice to close the descriptor, because there is a FINITE limit of how many descriptors a process can open
+- Sequential access has a File position pointer, witch points to the begining of the file, unless file is open for append
+- File position pointer advances on "read()" call
+- File position can be explicitly set with "lseek()"
