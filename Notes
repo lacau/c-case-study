@@ -1,3 +1,4 @@
+## Low-level IO
 - "open()" system call returns the lowest available descriptor
 - descriptors:
 -- 0 stdin  -> typically connected to keyboard
@@ -11,3 +12,9 @@
 - Sequential access has a File position pointer, witch points to the begining of the file, unless file is open for append
 - File position pointer advances on "read()" call
 - File position can be explicitly set with "lseek()"
+
+## Standard library IO
+- fopen / fwrite / fread / fclose / fseek / rewind
+- Uses "FILE *" as descriptor type, while Low level uses "int"
+- Uses User-space buffering that can be a performance improvement, while Low level does not
+- Is part of C standard
