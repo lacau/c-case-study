@@ -1,0 +1,21 @@
+# Write with low level IO
+time bin/rawio 1 10000000
+real    0m21.741s
+user    0m3.816s
+sys     0m17.892s
+
+time bin/rawio 100 10000
+real    0m0.034s
+user    0m0.006s
+sys     0m0.029s
+
+# Write with standard IO
+time bin/stdio 1 10000000
+real    0m0.165s
+user    0m0.152s
+sys     0m0.013s
+
+time bin/stdio 100 10000
+real    0m0.009s
+user    0m0.004s
+sys     0m0.006s

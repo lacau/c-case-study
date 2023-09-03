@@ -18,3 +18,4 @@
 - Uses "FILE *" as descriptor type, while Low level uses "int"
 - Uses User-space buffering that can be a performance improvement, while Low level does not
 - Is part of C standard
+- It does not dive into kernel every time you call it, it accumulates data into a buffer, and only troubles kernel with it when enough data is available for write.
