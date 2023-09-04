@@ -25,9 +25,64 @@
 - Its atomic
 - Uses mmap to store arrays of data into memory and memcpy to copy data between them
 
-# File Directory and structure
+## File Directory and structure
 - Files create inodes when created
 - Directory is also an inode with links, where links are a relation between name and an inode number
 - "stat()" and "fstat()" reads file attributes, basicaly it reads the inode
 - Seems odd, but Linux systems do not stores the creation time of a file
 - Use "noatime" when mounting a file system, prevents it from update inode timestamps everytime a file is readed
+
+## File Type and Permissions
+- "st_mode" field contains important information about the fil
+
+st_mode
+│  │  │  │  │ s │ g │ t │ r │ w │ x │ r │ w │ x │ r │ w │ x │
+ ¯¯¯¯¯¯¯¯¯¯¯             ¯¯¯¯¯¯¯¯¯¯¯ ¯¯¯¯¯¯¯¯¯¯¯ ¯¯¯¯¯¯¯¯¯¯¯
+  File Type                 owner       group       other
+                         permissions permissions permissions
+
+r -> read
+w -> write
+x -> execute
+s -> set UID: heart of privileges mechanism
+g -> set GID: heart of privileges mechanism
+t -> sticky bit: applies to directory, it defines who can delete files from directory. In linux its ignored when applied to ordinary files
+
+- Top four bit of the mode, specifies file type
+
+-- File Type:
+- 0010000 -> FIFO (pipe)
+- 0020000 -> character device (terminals, ttys)
+- 0040000 -> directory
+- 0060000 -> block device (disk partitions)
+- 0100000 -> regular file
+- 0120000 -> symbolic link
+- 0140000 -> socket
+
+- "chmod" -> change mode, it chages the "mode" field of the inode
+
+-- Useful Macros
+- There are useful symbolic constants and macros representing each byte of st_mode, very nasty names, hard to type, and completely impossible to pronounce
+
+- File Type macros can be directly used as if(S_ISREG(statbuf,st_mode)) prinf("regular file")
+- S_ISREG - regular file
+- S_ISDIR - directory
+- S_ISCHR - character device
+- S_ISBLK - block device
+- S_ISFIFO
+- S_ISLNK - symbolic link
+- S_ISSOCK - socket
+
+- Nasty Symbolic constants - bit wise used like if(statbuf.st_mode & S_IWOTH) printf("file is world writeable")
+s -> S_ISUID
+g -> S_ISGID
+t -> S_ISVTX
+r -> S_IRUSR
+w -> S_IWUSR
+x -> S_IXUSR
+r -> S_IRGRP
+w -> S_IWGRP
+x -> S_IXGRP
+r -> S_IROTH
+w -> S_IWOTH
+x -> S_IXOTH
