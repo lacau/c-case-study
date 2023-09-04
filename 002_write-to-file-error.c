@@ -2,6 +2,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int main() {
     int fd = open("002", O_WRONLY | O_CREAT, 0644);
