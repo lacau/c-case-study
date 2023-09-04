@@ -86,3 +86,33 @@ x -> S_IXGRP
 r -> S_IROTH
 w -> S_IWOTH
 x -> S_IXOTH
+
+# Creating files (Links)
+- open(name, flags, mode) with O_CREAT flag is just linke call creat(name, mode), in the last case, no open, no file descriptor is returned
+- link(oldname, newname) - gives the file an additional name, it lies behind "ln" system command
+- unlink(name)  removes a link/symlink, it lies behind "rm" system command
+-- If it the last link, file is removed, inode is deleted
+-- One exception is when file is open. While is a file descriptor open, the file will remain as an annominous file
+- symbolic links have their own inode, it ca do things that hard links cannot. Like link directories, link across file system boundaries. Its similar to a shortcut on Windows
+- symlink(oldname, newname) - it lies behind "ln -s" system command
+
+- Hard Link vs Symbolic link
+       Hard Link         |      Symbolic Link
+  Name -> inode number   |  Name -> Another name
+
+# Interacting with Directories
+- Directories are file, they have their own inode, but can`t be opened and readed with the traditional open and read system calls.
+- Every process has a current cirectory
+- getcwd(buf, size) - get te current directory. buf is result, size is the size of this buf. It return a pointer to to buf, so can be embedded to another function call
+- There is a symbolic constant calls PATH_MAX, this define de max size of a path name and should be a good size for buf
+- chdir(pathname) - change process directory
+- mkdir(name, mode) - Its similiar to creat, however, this will only create ONE directory. ex mkdir("a/b/c", 0755) will fail unless "a" and "b" already exist
+- rmdir(name) - remove dir, fails unless directory is empty
+- opendir(dirname) - return a handler on the directory that can be passed to readdir(handler)
+- Each call to readdir(handler) will return info from one file, usually loops through until the end of the directory
+- readdir(handler) return a "struct dirent", different linux distributions have different contents, but key info are the following:
+-- d_ino -> inode number
+-- d_type -> file type
+-- d_name -> file name
+- closedir(handler) - closes directory opened with opendir(dirname)
+
