@@ -1,0 +1,13 @@
+# The Command Line, the Environment and Time
+- Accessing the command Line
+- Processing command options
+- The environment
+- Time -> Representations, conversions, Time zones and locale
+- Processing time
+
+# Command Line Arguments
+- int main(char *argv[], argc)
+-- argv points to an array of pointers to strings, 
+-- this array has a NULL at end
+-- argv type is a poiter to pointer to char "char **argv"
+-- argc tells how many arguments are, it includes the programa name as index ZERO of argv
