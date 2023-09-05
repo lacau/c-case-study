@@ -11,3 +11,9 @@
 -- this array has a NULL at end
 -- argv type is a poiter to pointer to char "char **argv"
 -- argc tells how many arguments are, it includes the programa name as index ZERO of argv
+
+- getopt(argc, argv, optstring) -> helps handle arguments
+-- it re-order argv, putting all the optionals first
+-- optstring specifies the allowed option letters
+-- opstring can be used like "abn:t:" -> means "a" and "b" are boolean options, "n" and "t" are options that takes a follow argument
+-- this function return the option letter or EOF
