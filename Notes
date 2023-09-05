@@ -116,3 +116,28 @@ x -> S_IXOTH
 -- d_name -> file name
 - closedir(handler) - closes directory opened with opendir(dirname)
 
+# Monitoring File System Events
+- Linux kernel can send notifications if a file has been moved/created/closed/accessed/modified/deleted
+- Individual files or whole directories can be watched
+- System is not recursively, watch a directory, do not automatically watch sub directories
+- There are Three basic steps
+-- Create inotify instace (file descriptor) -> inotify_init()
+-- Add watch item -> inotify_add_watch(fd, path, mask)
+-- Read and process events
+
+- mask -> Bit mask specifuing the events to be monitored
+- Mask constants:
+-- IN_ACCESS -> File was accessed
+-- IN_ATTRIB -> File attributes changes (ownership, permissions, etc)
+-- IN_CREAT -> File created inside watched directory
+-- IN_DELETE -> File deleted inside watched directory
+-- IN_DELETE_SELF -> Watched file deleted
+-- IN_MODIFY -> File was modified
+-- IN_MOVE_SELF -> File was moved
+** It's nowhere close to a complete list of possible events
+
+# Reading events
+- read(fd, buf, size) - The read will block util a watched event occurs
+- May get more than one event returned in a single read
+- buf will return struct inotify_event with the following attributes:
+-- wd, mask, cookie, len, name
