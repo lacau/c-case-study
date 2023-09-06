@@ -17,3 +17,12 @@
 -- optstring specifies the allowed option letters
 -- opstring can be used like "abn:t:" -> means "a" and "b" are boolean options, "n" and "t" are options that takes a follow argument
 -- this function return the option letter or EOF
+
+# The environment
+- its just a list of strings carried by each process
+- each string is a Environment variable, and usually is in UPPER case
+- inside a program, we access environment using a external variable named "environ"
+- "environ" point to an array of pointers, each defining an environment variable ended with '\0', and the end of the array is marked with a NULL
+- "getenv(name)" can be used to obtain the value of a env viarble, or NULL if its not found
+- the environment is normally passed down from a process to its children
+- a process can choose to not pass on its environment
