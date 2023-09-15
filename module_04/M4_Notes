@@ -1,3 +1,4 @@
+
 # The Command Line, the Environment and Time
 - Accessing the command Line
 - Processing command options
@@ -26,3 +27,13 @@
 - "getenv(name)" can be used to obtain the value of a env viarble, or NULL if its not found
 - the environment is normally passed down from a process to its children
 - a process can choose to not pass on its environment
+
+# Time
+- time(NULL) -> Return the number of seconds since "the epoch" (Midnight, 1 Jan, 1970 UTC)
+- from command line it can be retrieved using "date +%s" command
+- in a 64bit system, time_t is a 64bit integer so it can represent time so far in the future
+- however in a 32bit system, time_t will overflow in January 2038
+- both "gmtime(t) and localtime(t)" receives a time_t and return te address  of a struct tm ("broken down" time)
+- "gmtime(t)" -> return time in UTC
+- "localtime(t)" -> return time in local time zone
+- tm struct is componded by: tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year, tm_wday, tm_yday, tm_isdst
